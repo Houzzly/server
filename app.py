@@ -8,8 +8,9 @@ from datetime import timedelta
 from db import db
 from keys import SECRET_KEY
 
-from routes.user.resource import UserRegister
-from routes.user.helpers import authenticate, identity
+from services.user.resource import UserRegister, User
+from services.user.helpers import authenticate, identity
+from services.house.resource import House
 
 # app config and api setup
 app = Flask(__name__)
@@ -42,6 +43,8 @@ def customized_response_handler(access_token, identity):
 
 
 api.add_resource(UserRegister, '/api/register')
+api.add_resource(User, '/api/user/<string:id>')
+api.add_resource(House, "/api/house/<string:id>")
 
 if __name__ == "__main__":
     db.init_app(app)

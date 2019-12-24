@@ -1,6 +1,7 @@
 import sqlite3
 from flask_restful import Resource, reqparse
-from routes.user.model import UserModel
+from flask_jwt import jwt_required
+from services.user.model import UserModel
 
 
 class UserRegister(Resource):
@@ -22,9 +23,19 @@ class UserRegister(Resource):
 
         user = UserModel(data["firstName"], data['lastName'],
                          data['email'], data['password'])
-                      
+
         user.save_to_db()
 
         return {"message": "User created successfully"}, 201
 
-  
+
+class User(Resource):
+
+    @jwt_required()
+    def get(self, id):
+        user = UserModel.find_by_id(id)
+
+        if not user:
+            return {"message": "User not found"}, 404
+
+        return user.json()
