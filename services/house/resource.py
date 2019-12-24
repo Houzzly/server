@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from services.house.model import HouseModel
+from model.boston_valuation import get_dollar_estimate
 
 
 class House(Resource):
@@ -26,6 +27,9 @@ class House(Resource):
         house = HouseModel(data['name'], data["bedrooms"],
                            data['bathrooms'], data["closeToRiver"],
                            data["distanceFromTown"], data['areaDemographic'], data['userId'])
+
+        house.price = get_dollar_estimate(
+            house.bedrooms + house.bathrooms, house.area_demographic, house.distance_from_town, house.close_to_river)
 
         house.save_to_db()
         return house.json(), 201
@@ -61,6 +65,9 @@ class House(Resource):
             house = HouseModel(data['name'], data["bedrooms"],
                                data['bathrooms'], data["closeToRiver"],
                                data["distanceFromTown"], data['areaDemographic'], data['userId'])
+
+        house.price = get_dollar_estimate(
+            house.bedrooms + house.bathrooms, house.area_demographic, house.distance_from_town, house.close_to_river)
 
         house.save_to_db()
         return house.json()

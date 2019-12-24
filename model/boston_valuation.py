@@ -15,8 +15,8 @@ log_prices = np.log(boston_dataset.target)
 target = pd.DataFrame(log_prices, columns=['PRICE'])
 
 # feature indices
-RM_IDX = 1
 CHAS_IDX = 2
+RM_IDX = 4
 DIS_IDX = 5
 PTRATIO_IDX = 8
 
@@ -43,12 +43,15 @@ def get_log_estimate(rooms,
     # Configure property
     property_stats[0][RM_IDX] = rooms
 
+    print("******")
+    print(area_demographic)
+
     if area_demographic == "poor":
-        property_stats[0][PTRATIO_IDX] = 17.400000
+        property_stats[0][PTRATIO_IDX] = 20.200000
     elif area_demographic == "moderate":
         property_stats[0][PTRATIO_IDX] = 19.050000
     else:
-        property_stats[0][PTRATIO_IDX] = 20.200000
+        property_stats[0][PTRATIO_IDX] = 17.400000
 
     if distance_from_town == "close":
         property_stats[0][DIS_IDX] = 2.100175
@@ -103,3 +106,5 @@ def get_dollar_estimate(rooms, area_demographic, distance_from_town, close_to_ri
     print(f'At {conf}% confidence the valuation range is')
     print(
         f'USD {rounded_low} at the lower end to USD {rounded_hi} at the high end.')
+
+    return rounded_est
