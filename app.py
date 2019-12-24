@@ -8,8 +8,8 @@ from datetime import timedelta
 from db import db
 from keys import SECRET_KEY
 
-from routes.user.resource import UserRegister
-from routes.user.helpers import authenticate, identity
+from services.user.resource import UserRegister
+from services.user.helpers import authenticate, identity
 
 # app config and api setup
 app = Flask(__name__)
