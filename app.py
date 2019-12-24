@@ -44,7 +44,7 @@ def customized_response_handler(access_token, identity):
 
 api.add_resource(UserRegister, '/api/register')
 api.add_resource(User, '/api/user/<string:id>')
-api.add_resource(House, "/api/house")
+api.add_resource(House, "/api/house/<string:id>")
 
 if __name__ == "__main__":
     db.init_app(app)

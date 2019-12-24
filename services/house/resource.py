@@ -21,11 +21,46 @@ class House(Resource):
                         help="userId is required")
 
     @jwt_required()
-    def post(self):
+    def post(self, id):
         data = House.parser.parse_args()
-        house = HouseModel(data["name"], data["bedrooms"],
+        house = HouseModel(data['name'], data["bedrooms"],
                            data['bathrooms'], data["closeToRiver"],
                            data["distanceFromTown"], data['areaDemographic'], data['userId'])
 
         house.save_to_db()
         return house.json(), 201
+
+    def get(self, id):
+        house = HouseModel.find_by_id(id)
+
+        if not house:
+            return {"message": "House not found"}, 404
+
+        return house.json()
+
+    def delete(self, id):
+        house = HouseModel.find_by_id(id)
+
+        if house:
+            house.delete_from_db()
+
+        return {"message": "House deleted"}
+
+    def put(self, id):
+        data = House.parser.parse_args()
+        house = HouseModel.find_by_id(id)
+
+        if house:
+            house.name = data['name']
+            house.bedrooms = data['bedrooms']
+            house.bathrooms = data['bathrooms']
+            house.close_to_river = data['closeToRiver']
+            house.distance_from_town = data['distanceFromTown']
+            house.area_demographic = data['areaDemographic']
+        else:
+            house = HouseModel(data['name'], data["bedrooms"],
+                               data['bathrooms'], data["closeToRiver"],
+                               data["distanceFromTown"], data['areaDemographic'], data['userId'])
+
+        house.save_to_db()
+        return house.json()

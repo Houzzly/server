@@ -15,6 +15,7 @@ class HouseModel(db.Model):
     distance_from_town_coefficient = db.Column(db.Float(precision=2))
     area_demographic = db.Column(db.String(510), nullable=False)
     area_demographic_coefficient = db.Column(db.Float(precision=2))
+    price = db.Column(db.Float(precision=2))
 
     # finds matching user
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
@@ -42,6 +43,7 @@ class HouseModel(db.Model):
             "distance_from_town_coefficient": self.distance_from_town_coefficient,
             "area_demographic": self.area_demographic,
             "area_demographic_coefficient": self.area_demographic_coefficient,
+            "price": self.price,
             "user_id": self.user_id
         }
 
