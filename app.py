@@ -8,7 +8,7 @@ from datetime import timedelta
 from db import db
 from keys import SECRET_KEY
 
-from services.user.resource import UserRegister
+from services.user.resource import UserRegister, User
 from services.user.helpers import authenticate, identity
 from services.house.resource import House
 
@@ -43,6 +43,7 @@ def customized_response_handler(access_token, identity):
 
 
 api.add_resource(UserRegister, '/api/register')
+api.add_resource(User, '/api/user/<string:id>')
 api.add_resource(House, "/api/house")
 
 if __name__ == "__main__":
