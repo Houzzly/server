@@ -43,9 +43,9 @@ class HouseModel(db.Model):
             "area_demographic_coefficient": self.area_demographic_coefficient,
         }
 
-    @classmethod:
+    @classmethod
     def find_by_id(self, id):
-        return cls.query.filter_by(id=id).first()
+        return self.query.filter_by(id=id).first()
 
     def save_to_db(self):
         db.session.add(self)

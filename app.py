@@ -10,6 +10,7 @@ from keys import SECRET_KEY
 
 from services.user.resource import UserRegister
 from services.user.helpers import authenticate, identity
+from services.house.resource import House
 
 # app config and api setup
 app = Flask(__name__)
@@ -42,6 +43,7 @@ def customized_response_handler(access_token, identity):
 
 
 api.add_resource(UserRegister, '/api/register')
+api.add_resource(House, "/api/house")
 
 if __name__ == "__main__":
     db.init_app(app)
