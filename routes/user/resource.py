@@ -26,3 +26,5 @@ class UserRegister(Resource):
         user.save_to_db()
 
         return {"message": "User created successfully"}, 201
+
+  
