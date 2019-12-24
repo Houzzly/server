@@ -6,3 +6,6 @@
 - Flask-RESTful
 - Flask-JWT
 - Flask-SQLAlchemy
+- Pandas
+- Numpy
+- Sklearn
