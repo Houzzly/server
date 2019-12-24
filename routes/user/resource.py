@@ -1,6 +1,6 @@
 import sqlite3
 from flask_restful import Resource, reqparse
-from user.model import UserModel
+from routes.user.model import UserModel
 
 
 class UserRegister(Resource):
@@ -22,6 +22,7 @@ class UserRegister(Resource):
 
         user = UserModel(data["firstName"], data['lastName'],
                          data['email'], data['password'])
+                      
         user.save_to_db()
 
         return {"message": "User created successfully"}, 201
