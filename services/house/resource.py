@@ -13,17 +13,19 @@ class House(Resource):
                         help="Bathooms is required")
     parser.add_argument("closeToRiver", type=bool, required=True,
                         help="Close to river is required")
-    parser.add_argument("distanceFromTown", type=str, required=True,
+    parser.add_argument("distanceFromTown", type=str, required=True, choices=["close", "moderate", 'far'],
                         help="Distance from town is required")
-    parser.add_argument("areaDemographic", type=str, required=True,
+    parser.add_argument("areaDemographic", type=str, required=True, choices=["poor", "moderate", 'rich'],
                         help="Area demographic is required")
+    parser.add_argument("userId", type=int, required=True,
+                        help="userId is required")
 
     @jwt_required()
     def post(self):
         data = House.parser.parse_args()
         house = HouseModel(data["name"], data["bedrooms"],
-                           data['bathrooms']. data["closeToRiver"],
-                           data["distanceFromTown"], data['areaDemographic'])
+                           data['bathrooms'], data["closeToRiver"],
+                           data["distanceFromTown"], data['areaDemographic'], data['userId'])
 
         house.save_to_db()
         return house.json(), 201

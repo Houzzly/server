@@ -20,13 +20,14 @@ class HouseModel(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     user = db.relationship("UserModel")
 
-    def __init__(self, name, bedrooms, bathrooms, close_to_river, distance_from_town, area_demographic):
+    def __init__(self, name, bedrooms, bathrooms, close_to_river, distance_from_town, area_demographic, user_id):
         self.name = name
         self.bedrooms = bedrooms
         self.bathrooms = bathrooms
         self.close_to_river = close_to_river
         self.distance_from_town = distance_from_town
         self.area_demographic = area_demographic
+        self.user_id = user_id
 
     def json(self):
         return {
@@ -41,6 +42,7 @@ class HouseModel(db.Model):
             "distance_from_town_coefficient": self.distance_from_town_coefficient,
             "area_demographic": self.area_demographic,
             "area_demographic_coefficient": self.area_demographic_coefficient,
+            "user_id": self.user_id
         }
 
     @classmethod
