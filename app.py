@@ -4,6 +4,7 @@ from flask import Flask, jsonify
 from flask_restful import Api
 from flask_jwt import JWT
 from datetime import timedelta
+from flask_cors import CORS
 
 from db import db
 from keys import SECRET_KEY
@@ -14,6 +15,7 @@ from services.house.resource import House
 
 # app config and api setup
 app = Flask(__name__)
+CORS(app)
 @app.route("/api", methods=["GET"])
 def get_api_status():
     return "Api v1"
@@ -26,6 +28,7 @@ app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY", SECRET_KEY)
 app.config["JWT_AUTH_URL_RULE"] = "/api/login"
 app.config['JWT_AUTH_USERNAME_KEY'] = 'email'
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=604800)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 api = Api(app)
 
